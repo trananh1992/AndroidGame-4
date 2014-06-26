@@ -3,6 +3,7 @@ package com.beltonp.androidgame.fantasygame;
 import java.util.List;
 
 import android.util.Log;
+
 import com.beltonp.androidgame.framework.Game;
 import com.beltonp.androidgame.framework.Graphics;
 import com.beltonp.androidgame.framework.Input.TouchEvent;
@@ -25,9 +26,15 @@ public class MainMenuScreen extends Screen {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) 
             {
-                if(inBounds(event, 0, 0, 480, 320)) 
+                if(inBounds(event, 0, 0, 1920, 1080)) 
                 {
                 	Log.i("PHIL", "Clicked!");
+                }
+                if(inBounds(event, 769, 700, 382, 88)) 
+                {
+                	Log.i("PHIL", "Play!");
+                	game.setScreen(new GameScreen(game));
+                	return;
                 }
             }
         }
@@ -43,9 +50,10 @@ public class MainMenuScreen extends Screen {
 	@Override
 	public void present(float deltaTime) {
 		Graphics g = game.getGraphics();
-        
-        g.drawPixmap(Assets.background, 0, 0);
-        g.drawPixmap(Assets.mainMenu, 64, 220);
+		
+        g.drawPixmap(Assets.background, 0, 0, 7);
+        g.drawPixmap(Assets.play, 769, 700);
+        g.drawPixmap(Assets.warrior, 50, 50, 8);
 	}
 
 	@Override

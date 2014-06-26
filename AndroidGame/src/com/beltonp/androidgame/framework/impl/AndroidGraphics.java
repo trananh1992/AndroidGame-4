@@ -9,9 +9,11 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.util.DisplayMetrics;
 
 import com.beltonp.androidgame.framework.Graphics;
 import com.beltonp.androidgame.framework.Pixmap;
@@ -94,8 +96,7 @@ public class AndroidGraphics implements Graphics {
         canvas.drawRect(x, y, x + width - 1, y + width - 1, paint);
     }
 
-    public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY,
-            int srcWidth, int srcHeight) {
+    public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight) {
         srcRect.left = srcX;
         srcRect.top = srcY;
         srcRect.right = srcX + srcWidth - 1;
@@ -108,6 +109,47 @@ public class AndroidGraphics implements Graphics {
 
         canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect, null);
     }
+    
+	public void drawPixmap(Pixmap pixmap, int x, int y, int scale, Boolean flip) {
+		if (flip == true)
+		{
+			Matrix m = new Matrix();
+		    m.preScale(-1, 1);
+		    Bitmap src = ((AndroidPixmap) pixmap).bitmap;
+		    Bitmap dst = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), m, false);
+		    dst.setDensity(DisplayMetrics.DENSITY_DEFAULT);
+		    
+		    srcRect.left = 0;
+	        srcRect.top = 0;
+	        srcRect.right = pixmap.getWidth();
+	        srcRect.bottom = pixmap.getHeight();
+	        
+			dstRect.left = x;
+			dstRect.top = y;
+			dstRect.right = x + (pixmap.getWidth() * scale);
+			dstRect.bottom = y + (pixmap.getHeight() * scale);
+			
+			canvas.drawBitmap(dst, srcRect, dstRect, null);
+		}
+		else
+		{
+			drawPixmap(pixmap, x, y, scale);
+		}
+	}
+    
+	public void drawPixmap(Pixmap pixmap, int x, int y, int scale) {
+        srcRect.left = 0;
+        srcRect.top = 0;
+        srcRect.right = pixmap.getWidth();
+        srcRect.bottom = pixmap.getHeight();
+        
+		dstRect.left = x;
+		dstRect.top = y;
+		dstRect.right = x + (pixmap.getWidth() * scale);
+		dstRect.bottom = y + (pixmap.getHeight() * scale);
+		
+		canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect, null);
+	}
 
     public void drawPixmap(Pixmap pixmap, int x, int y) {
         canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, null);

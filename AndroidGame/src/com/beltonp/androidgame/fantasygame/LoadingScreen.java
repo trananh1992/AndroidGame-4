@@ -1,7 +1,5 @@
 package com.beltonp.androidgame.fantasygame;
 
-import android.util.Log;
-
 import com.beltonp.androidgame.framework.Game;
 import com.beltonp.androidgame.framework.Graphics;
 import com.beltonp.androidgame.framework.Graphics.PixmapFormat;
@@ -11,16 +9,17 @@ public class LoadingScreen extends Screen{
 
 	public LoadingScreen(Game game) {
 		super(game);
-		Log.i("PHIL", "after super(game) in LoadingScreen class");
 	}
 
 	@Override
 	public void update(float deltaTime) {
-		// TODO Add code here.
-		Log.i("PHIL", "begining of update of LoadingScreen class");
 		Graphics g = game.getGraphics();
-        Assets.background = g.newPixmap("background.png", PixmapFormat.RGB565);
-        Assets.mainMenu = g.newPixmap("mainmenu.png", PixmapFormat.ARGB4444);
+        Assets.background = g.newPixmap("background-white.png", PixmapFormat.RGB565);
+        Assets.play = g.newPixmap("play.png", PixmapFormat.ARGB4444);
+        Assets.warrior = g.newPixmap("Warrior.png", PixmapFormat.ARGB4444);
+        Assets.attack = g.newPixmap("attack.png", PixmapFormat.ARGB4444);
+        Assets.numbers = g.newPixmap("numbers.png", PixmapFormat.ARGB4444);
+        Assets.ogre = g.newPixmap("ogre.png", PixmapFormat.ARGB4444);
         game.setScreen(new MainMenuScreen(game));
 	}
 

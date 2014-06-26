@@ -22,7 +22,7 @@
         <activity
             android:name=".FantasyGame"
             android:label="Fantasy Game" 
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

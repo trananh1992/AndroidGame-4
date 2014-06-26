@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -34,8 +33,8 @@ public abstract class AndroidGame extends Activity implements Game {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         
         boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        int frameBufferWidth = isLandscape ? 1280 : 720;
-        int frameBufferHeight = isLandscape ? 720 : 1280;
+        int frameBufferWidth = isLandscape ? 1920 : 1080;
+        int frameBufferHeight = isLandscape ? 1080 : 1920;
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth, frameBufferHeight, Config.RGB_565);
         
         Point size = new Point();
@@ -52,9 +51,7 @@ public abstract class AndroidGame extends Activity implements Game {
         audio = new AndroidAudio(this);
         input = new AndroidInput(this, renderView, scaleX, scaleY);
         screen = getStartScreen();
-        Log.i("PHIL", "after getStartScreen() in AndroidGame class");
         setContentView(renderView);
-        Log.i("PHIL", "after setContentView(renderView) in AndroidGame class");
     }
 
     @Override
